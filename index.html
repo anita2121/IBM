@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Onboarding Buddy – Asisten Karyawan Baru</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="brand-logo">
+        <div class="brand-icon">AI</div>
+        <div class="brand-text">
+          <span class="brand-name">Onboarding Buddy</span>
+          <span class="brand-sub">HR Assistant Platform</span>
+        </div>
+      </div>
+      <button class="sidebar-close-btn" id="sidebarClose" aria-label="Tutup menu">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar-section-label">MENU UTAMA</div>
+    <nav class="sidebar-nav" role="navigation">
+      <button class="nav-item" data-section="dashboard" onclick="switchSection('dashboard')">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </span>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item active" data-section="chat" onclick="switchSection('chat')">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </span>
+        <span>Chatbot AI</span>
+      </button>
+      <button class="nav-item" data-section="sop" onclick="switchSection('sop')">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+        </span>
+        <span>Panduan SOP</span>
+      </button>
+      <button class="nav-item" data-section="tasks" onclick="switchSection('tasks')">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,11 12,14 22,4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </span>
+        <span>Tugas &amp; Aktivitas</span>
+      </button>
+      <button class="nav-item" data-section="summary" onclick="switchSection('summary')">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </span>
+        <span>Ringkasan</span>
+      </button>
+      <button class="nav-item" data-section="history" onclick="switchSection('history')">
+        <span class="nav-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+        </span>
+        <span>Riwayat Chat</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-profile">
+      <div class="profile-avatar-sm">ARS</div>
+      <div class="profile-info">
+        <span class="profile-name-sm">Anita Redno Sari</span>
+        <span class="profile-role-sm">Karyawan Baru · HR Dept.</span>
+      </div>
+    </div>
+
+    <div class="sidebar-disclaimer">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Data contoh simulasi. Bukan kebijakan perusahaan sesungguhnya.
+    </div>
+
+  </aside>
+
+  <!-- OVERLAY (mobile) -->
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- ══ MAIN ══════════════════════════════════════════════════════════════ -->
+  <div class="main" id="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-btn" id="menuBtn" onclick="openSidebar()" aria-label="Buka menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar-breadcrumb">
+          <span class="breadcrumb-app">AI Onboarding Buddy</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,18 15,12 9,6"/></svg>
+          <span class="breadcrumb-page" id="topbarTitle">Chatbot AI</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="clear-btn" id="clearBtn" onclick="clearCurrentSection()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3,6 5,6 21,6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+          <span>Hapus Riwayat</span>
+        </button>
+        <div class="topbar-profile">
+          <div class="topbar-avatar">ARS</div>
+          <div class="topbar-profile-info">
+            <span class="topbar-profile-name">Anita Redno Sari</span>
+            <span class="topbar-profile-role">Karyawan Baru</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── SECTION: DASHBOARD ─────────────────────────────────────────── -->
+    <section class="section" id="section-dashboard">
+      <div class="page-content">
+        <div class="dashboard-hero">
+          <div class="hero-text">
+            <h1 class="hero-title">Selamat Datang, Anita! 👋</h1>
+            <p class="hero-subtitle">Ini adalah hari ke-<strong id="dayCounter">1</strong> onboarding Anda. Terus semangat dan jangan ragu bertanya!</p>
+          </div>
+          <div class="hero-badge">
+            <span class="hero-badge-label">Status</span>
+            <span class="hero-badge-value">Karyawan Baru</span>
+          </div>
+        </div>
+
+        <div class="stats-row" id="dashboardStats"></div>
+
+        <div class="dashboard-grid">
+          <div class="dash-card dash-progress-card">
+            <div class="dash-card-header">
+              <h3>Progress Onboarding</h3>
+              <span class="dash-card-badge" id="dashProgressBadge">0%</span>
+            </div>
+            <div class="dash-progress-bar">
+              <div class="dash-progress-fill" id="dashProgressFill"></div>
+            </div>
+            <p class="dash-progress-note" id="dashProgressNote">Mulai dengan menyelesaikan tugas di menu Tugas &amp; Aktivitas.</p>
+          </div>
+
+          <div class="dash-card dash-quick-card">
+            <div class="dash-card-header"><h3>Akses Cepat</h3></div>
+            <div class="quick-access-grid">
+              <button class="quick-access-btn" onclick="switchSection('chat')">
+                <span class="qa-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </span>
+                <span>Tanya AI</span>
+              </button>
+              <button class="quick-access-btn" onclick="switchSection('sop')">
+                <span class="qa-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                </span>
+                <span>Panduan SOP</span>
+              </button>
+              <button class="quick-access-btn" onclick="switchSection('tasks')">
+                <span class="qa-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,11 12,14 22,4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </span>
+                <span>Tugas Saya</span>
+              </button>
+              <button class="quick-access-btn" onclick="switchSection('summary')">
+                <span class="qa-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </span>
+                <span>Ringkasan</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-card dash-tips-card">
+          <div class="dash-card-header"><h3>📌 Panduan Penting Minggu Pertama</h3></div>
+          <ul class="tips-list">
+            <li><strong>Hari 1–2:</strong> Orientasi HR, aktivasi akun email &amp; sistem internal, perkenalan tim</li>
+            <li><strong>Hari 3–5:</strong> Setup perangkat kerja, baca SOP utama, review target bersama supervisor</li>
+            <li><strong>Minggu 2–4:</strong> Selesaikan modul LMS, daftar BPJS, ikuti training teknis divisi</li>
+            <li><strong>Butuh bantuan?</strong> Gunakan chatbot AI di menu Chatbot atau hubungi HR di <em>ext. 1001</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION: CHATBOT ───────────────────────────────────────────── -->
+    <section class="section active" id="section-chat">
+      <div class="chat-wrapper">
+        <div class="chat-messages" id="chatMessages">
+          <div class="message bot-message">
+            <div class="msg-avatar bot-av">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/></svg>
+            </div>
+            <div class="msg-body">
+              <span class="msg-sender">AI Onboarding Buddy</span>
+              <div class="bubble">
+                <p>Halo! Selamat datang di <strong>AI Onboarding Buddy</strong>. 👋</p>
+                <p>Saya siap membantu Anda memahami informasi perusahaan, SOP, dan panduan kerja sebagai karyawan baru.</p>
+                <p>Silakan ajukan pertanyaan, atau ketik <code>bantuan</code> untuk melihat topik yang tersedia.</p>
+              </div>
+              <span class="msg-time" id="welcomeTime"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-wrapper">
+          <div class="quick-chips" id="quickPrompts">
+            <button class="chip" onclick="sendQuickPrompt('Apa saja kebijakan cuti perusahaan?')">Kebijakan Cuti</button>
+            <button class="chip" onclick="sendQuickPrompt('Bagaimana prosedur absensi?')">Prosedur Absensi</button>
+            <button class="chip" onclick="sendQuickPrompt('Apa saja fasilitas karyawan?')">Fasilitas Kantor</button>
+            <button class="chip" onclick="sendQuickPrompt('Bagaimana alur onboarding hari pertama?')">Hari Pertama</button>
+            <button class="chip" onclick="sendQuickPrompt('Informasi gaji dan tunjangan')">Gaji &amp; Tunjangan</button>
+          </div>
+          <div class="chat-input-bar">
+            <textarea id="chatInput" placeholder="Tulis pertanyaan Anda di sini..." rows="1"
+              onkeydown="handleKeyDown(event)" oninput="autoResize(this)"></textarea>
+            <button class="send-btn" id="sendBtn" onclick="sendMessage()" aria-label="Kirim pesan">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+            </button>
+          </div>
+          <p class="input-hint">Tekan <kbd>Enter</kbd> untuk kirim · <kbd>Shift+Enter</kbd> untuk baris baru · Data adalah simulasi</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION: SOP ───────────────────────────────────────────────── -->
+    <section class="section" id="section-sop">
+      <div class="page-content">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Panduan SOP &amp; Peraturan Perusahaan</h2>
+            <p class="page-desc">Standar Operasional Prosedur perusahaan — <em>data contoh simulasi</em>, bukan kebijakan nyata.</p>
+          </div>
+          <span class="page-badge">8 Dokumen</span>
+        </div>
+        <div class="sop-grid" id="sopCards"></div>
+      </div>
+    </section>
+
+    <!-- ── SECTION: TASKS ─────────────────────────────────────────────── -->
+    <section class="section" id="section-tasks">
+      <div class="page-content">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Tugas &amp; Aktivitas Karyawan Baru</h2>
+            <p class="page-desc">Checklist aktivitas selama masa onboarding. Klik tugas untuk mengubah status.</p>
+          </div>
+        </div>
+        <div class="task-progress-card">
+          <div class="task-prog-top">
+            <div>
+              <span class="task-prog-label">Progress Keseluruhan</span>
+              <span class="task-prog-count" id="progressText">0 / 0 tugas selesai</span>
+            </div>
+            <span class="task-prog-pct" id="progressPct">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+        <div id="taskList"></div>
+      </div>
+    </section>
+
+    <!-- ── SECTION: SUMMARY ───────────────────────────────────────────── -->
+    <section class="section" id="section-summary">
+      <div class="page-content">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Ringkasan Informasi Onboarding</h2>
+            <p class="page-desc">Ikhtisar progress dan informasi penting untuk karyawan baru.</p>
+          </div>
+        </div>
+        <div id="summaryCards"></div>
+      </div>
+    </section>
+
+    <!-- ── SECTION: HISTORY ───────────────────────────────────────────── -->
+    <section class="section" id="section-history">
+      <div class="page-content">
+        <div class="page-header">
+          <div>
+            <h2 class="page-title">Riwayat Percakapan</h2>
+            <p class="page-desc">Semua percakapan yang telah dilakukan dalam sesi ini.</p>
+          </div>
+          <button class="btn-outline-danger" onclick="clearCurrentSection()">Hapus Semua</button>
+        </div>
+        <div id="historyList">
+          <div class="empty-state">
+            <div class="empty-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+            </div>
+            <p class="empty-title">Belum Ada Riwayat</p>
+            <p class="empty-sub">Mulai percakapan di menu Chatbot AI untuk melihat riwayat di sini.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /main -->
+
+  <script src="script.js"></script>
+</body>
+</html>
